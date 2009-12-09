@@ -4,7 +4,7 @@ set tabstop=2     " Number of columns per *existing* tabs.
 set softtabstop=2 " Number of columns to create when pressing <Tab>.
 set shiftwidth=2  " Number of columns to be inserted when using >> or << to indent code.
 set expandtab     " Hitting <Tab> in insert mode will produce the appropriate number of spaces
-"set autoindent    " Indent after opening a block.
+set autoindent    " Indent after opening a block.
 set smarttab      " <Tab> in front of a line inserts the number of spaces speced in shiftwidth. <Backspace> on a tab space deletes the same. 
 
 " No word wrap
@@ -20,12 +20,23 @@ set nowrap
 "
 set whichwrap+=<,>,[,]
 
-" Close braces
+" Key mappings
+"
 
+" Close mappings
 "imap ( ()<left>
 "imap { {}<left>
 "imap \" ""<left>
 "imap \' ''<left>
+
+" Alias commands, using the cmdalias plugin
+source ~/.vim/plugin/cmdalias.vim
+Alias bc Bclose
+
+" Edit mode to command mode transition shortcuts. (Esc is toooo far.)
+"
+imap jj <Esc>
+imap ;; <Esc>
 
 " Find & Replace
 "
@@ -44,3 +55,6 @@ set number    " Show line numbers
 set t_Co=256
 colorscheme mustang
 
+" Enter 'paste mode' to paste text w/o auto indent features
+"
+set pastetoggle=<F3>
