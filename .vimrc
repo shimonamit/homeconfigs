@@ -2,10 +2,12 @@
 set tabstop=2     " Number of columns per *existing* tabs.
 set softtabstop=2 " Number of columns to create when pressing <Tab>.
 set shiftwidth=2  " Number of columns to be inserted when using >> or << to indent code.
-set expandtab     " Hitting <Tab> in insert mode will produce the appropriate number of spaces
+set expandtab     " Insert spaces instead of tab. The number of spaces is dependent on the tabstop option.
 set autoindent    " Indent after opening a block.
 set smarttab      " <Tab> in front of a line inserts the number of spaces speced in shiftwidth. <Backspace> on a tab space deletes the same. 
 set smartindent
+
+set backspace=indent,eol
 
 " No word wrap
 set nowrap
@@ -26,6 +28,7 @@ imap \" ""<left>
 " Edit mode to command mode transition shortcuts. (Esc is toooo far.)
 imap jj <Esc>
 imap ;; <Esc>
+
 
 " Find & Replace
 set ic        " Ignore case
@@ -52,3 +55,6 @@ set pastetoggle=<F3>
 au VimEnter * NERDTree
 au VimEnter * Alias bc Bclose 
 
+
+" Macros
+:nnoremap <Space> @q " Quickly play macro
