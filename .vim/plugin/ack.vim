@@ -13,6 +13,7 @@ function! Ack(args)
     exec "set grepprg=" . g:ackprg
     execute "silent! grep " . a:args
     botright copen
+    set modifiable
     let &grepprg=grepprg_bak
     exec "redraw!"
 endfunction
