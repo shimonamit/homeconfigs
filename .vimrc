@@ -41,10 +41,10 @@ let mapleader = "\\"
 "imap \" ""<left>
 
 " Movement controls
-map j <Left>
-map k <Down>
-map l <Up>
-map ; <Right>
+" map j <Left>
+" map k <Down>
+" map l <Up>
+" map ; <Right>
 
 " Buffers
 map <silent><c-tab> :bn<CR>
@@ -53,8 +53,8 @@ map <silent><leader>x :Bclose<CR>
 map <silent><leader>l :ls<CR>
 
 " Current buffer navigation
-map <c-down> <c-e>
-map <c-up> <c-y>
+" map <c-down> <c-e>
+" map <c-up> <c-y>
 
 " Windows
 map <s-left> <c-w><left>
@@ -62,11 +62,8 @@ map <s-right> <c-w><right>
 map <s-down> <c-w><down>
 map <s-up> <c-w><up>
 
-" Save file
-map <silent><leader>w :w<CR>
-
 " Quick turn-highlight-off
-map <silent><leader>h :noh<CR>
+" map <silent><leader>h :noh<CR>
 
 " Plugin shortcuts
 map <silent><leader>n :NERDTreeToggle<CR>
