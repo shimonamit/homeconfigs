@@ -32,7 +32,9 @@ ln -s $SCRIPT_DIR/.gvimrc ~/.gvimrc
 if [ ! -d ~/.bash ]; then
   mkdir ~/.bash 
 fi
-rm ~/.bash/my-git-prompt.sh
+if [ -f ~/.bash/my-git-prompt.sh ]; then
+  rm ~/.bash/my-git-prompt.sh
+fi
 ln -s $SCRIPT_DIR/.bash/my-git-prompt.sh ~/.bash/my-git-prompt.sh
 
 #--------------------------------------#
