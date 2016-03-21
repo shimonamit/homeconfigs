@@ -1,13 +1,39 @@
 " surround.vim - Surroundings
+<<<<<<< HEAD
 " Author:       Tim Pope <http://tpo.pe/>
 " Version:      1.90
 " GetLatestVimScripts: 1697 1 :AutoInstall: surround.vim
 
 if exists("g:loaded_surround") || &cp || v:version < 700
+=======
+" Author:       Tim Pope <vimNOSPAM@tpope.org>
+" Version:      1.90
+" GetLatestVimScripts: 1697 1 :AutoInstall: surround.vim
+"
+" See surround.txt for help.  This can be accessed by doing
+"
+" :helptags ~/.vim/doc
+" :help surround
+"
+" Licensed under the same terms as Vim itself.
+
+" ============================================================================
+
+" Exit quickly when:
+" - this plugin was already loaded or disabled
+" - when 'compatible' is set
+if (exists("g:loaded_surround") && g:loaded_surround) || &cp
+>>>>>>> origin/master
   finish
 endif
 let g:loaded_surround = 1
 
+<<<<<<< HEAD
+=======
+let s:cpo_save = &cpo
+set cpo&vim
+
+>>>>>>> origin/master
 " Input functions {{{1
 
 function! s:getchar()
@@ -21,10 +47,17 @@ endfunction
 function! s:inputtarget()
   let c = s:getchar()
   while c =~ '^\d\+$'
+<<<<<<< HEAD
     let c .= s:getchar()
   endwhile
   if c == " "
     let c .= s:getchar()
+=======
+    let c = c . s:getchar()
+  endwhile
+  if c == " "
+    let c = c . s:getchar()
+>>>>>>> origin/master
   endif
   if c =~ "\<Esc>\|\<C-C>\|\0"
     return ""
@@ -34,9 +67,16 @@ function! s:inputtarget()
 endfunction
 
 function! s:inputreplacement()
+<<<<<<< HEAD
   let c = s:getchar()
   if c == " "
     let c .= s:getchar()
+=======
+  "echo '-- SURROUND --'
+  let c = s:getchar()
+  if c == " "
+    let c = c . s:getchar()
+>>>>>>> origin/master
   endif
   if c =~ "\<Esc>" || c =~ "\<C-C>"
     return ""
@@ -75,9 +115,25 @@ function! s:extractafter(str)
   endif
 endfunction
 
+<<<<<<< HEAD
 function! s:fixindent(str,spc)
   let str = substitute(a:str,'\t',repeat(' ',&sw),'g')
   let spc = substitute(a:spc,'\t',repeat(' ',&sw),'g')
+=======
+function! s:repeat(str,count)
+  let cnt = a:count
+  let str = ""
+  while cnt > 0
+    let str = str . a:str
+    let cnt = cnt - 1
+  endwhile
+  return str
+endfunction
+
+function! s:fixindent(str,spc)
+  let str = substitute(a:str,'\t',s:repeat(' ',&sw),'g')
+  let spc = substitute(a:spc,'\t',s:repeat(' ',&sw),'g')
+>>>>>>> origin/master
   let str = substitute(str,'\(\n\|\%^\).\@=','\1'.spc,'g')
   if ! &et
     let str = substitute(str,'\s\{'.&ts.'\}',"\t",'g')
@@ -87,14 +143,23 @@ endfunction
 
 function! s:process(string)
   let i = 0
+<<<<<<< HEAD
   for i in range(7)
+=======
+  while i < 7
+    let i = i + 1
+>>>>>>> origin/master
     let repl_{i} = ''
     let m = matchstr(a:string,nr2char(i).'.\{-\}\ze'.nr2char(i))
     if m != ''
       let m = substitute(strpart(m,1),'\r.*','','')
       let repl_{i} = input(substitute(m,':\s*$','','').': ')
     endif
+<<<<<<< HEAD
   endfor
+=======
+  endwhile
+>>>>>>> origin/master
   let s = ""
   let i = 0
   while i < strlen(a:string)
@@ -102,7 +167,11 @@ function! s:process(string)
     if char2nr(char) < 8
       let next = stridx(a:string,char,i+1)
       if next == -1
+<<<<<<< HEAD
         let s .= char
+=======
+        let s = s . char
+>>>>>>> origin/master
       else
         let insertion = repl_{char2nr(char)}
         let subs = strpart(a:string,i+1,next-i-1)
@@ -113,6 +182,7 @@ function! s:process(string)
           let r = stridx(sub,"\r")
           let insertion = substitute(insertion,strpart(sub,0,r),strpart(sub,r+1),'')
         endwhile
+<<<<<<< HEAD
         let s .= insertion
         let i = next
       endif
@@ -120,6 +190,15 @@ function! s:process(string)
       let s .= char
     endif
     let i += 1
+=======
+        let s = s . insertion
+        let i = next
+      endif
+    else
+      let s = s . char
+    endif
+    let i = i + 1
+>>>>>>> origin/master
   endwhile
   return s
 endfunction
@@ -137,6 +216,10 @@ function! s:wrap(string,char,type,...)
   else
     let initspaces = matchstr(getline('.'),'\%^\s*')
   endif
+<<<<<<< HEAD
+=======
+  " Duplicate b's are just placeholders (removed)
+>>>>>>> origin/master
   let pairs = "b()B{}r[]a<>"
   let extraspace = ""
   if newchar =~ '^ '
@@ -162,7 +245,11 @@ function! s:wrap(string,char,type,...)
     let dounmapp = 0
     let dounmapb = 0
     if !maparg(">","c")
+<<<<<<< HEAD
       let dounmapb = 1
+=======
+      let dounmapb= 1
+>>>>>>> origin/master
       " Hide from AsNeeded
       exe "cn"."oremap > <CR>"
     endif
@@ -188,7 +275,11 @@ function! s:wrap(string,char,type,...)
       endif
       if newchar == "\<C-T>" || newchar == ","
         if type ==# "v" || type ==# "V"
+<<<<<<< HEAD
           let before .= "\n\t"
+=======
+          let before = before . "\n\t"
+>>>>>>> origin/master
         endif
         if type ==# "v"
           let after  = "\n". after
@@ -199,20 +290,38 @@ function! s:wrap(string,char,type,...)
     " LaTeX
     let env = input('\begin{')
     let env = '{' . env
+<<<<<<< HEAD
     let env .= s:closematch(env)
+=======
+    let env = env . s:closematch(env)
+>>>>>>> origin/master
     echo '\begin'.env
     if env != ""
       let before = '\begin'.env
       let after  = '\end'.matchstr(env,'[^}]*').'}'
     endif
+<<<<<<< HEAD
+=======
+    "if type ==# 'v' || type ==# 'V'
+    "let before = before ."\n\t"
+    "endif
+    "if type ==# 'v'
+    "let after  = "\n".initspaces.after
+    "endif
+>>>>>>> origin/master
   elseif newchar ==# 'f' || newchar ==# 'F'
     let fnc = input('function: ')
     if fnc != ""
       let before = substitute(fnc,'($','','').'('
       let after  = ')'
       if newchar ==# 'F'
+<<<<<<< HEAD
         let before .= ' '
         let after = ' ' . after
+=======
+        let before = before . ' '
+        let after  = ' ' . after
+>>>>>>> origin/master
       endif
     endif
   elseif idx >= 0
@@ -230,7 +339,13 @@ function! s:wrap(string,char,type,...)
     let before = ''
     let after  = ''
   endif
+<<<<<<< HEAD
   let after  = substitute(after ,'\n','\n'.initspaces,'g')
+=======
+  "let before = substitute(before,'\n','\n'.initspaces,'g')
+  let after  = substitute(after ,'\n','\n'.initspaces,'g')
+  "let after  = substitute(after,"\n\\s*\<C-U>\\s*",'\n','g')
+>>>>>>> origin/master
   if type ==# 'V' || (special && type ==# "v")
     let before = substitute(before,' \+$','','')
     let after  = substitute(after ,'^ \+','','')
@@ -238,14 +353,24 @@ function! s:wrap(string,char,type,...)
       let after  = initspaces.after
     endif
     if keeper !~ '\n$' && after !~ '^\n'
+<<<<<<< HEAD
       let keeper .= "\n"
+=======
+      let keeper = keeper . "\n"
+>>>>>>> origin/master
     elseif keeper =~ '\n$' && after =~ '^\n'
       let after = strpart(after,1)
     endif
     if before !~ '\n\s*$'
+<<<<<<< HEAD
       let before .= "\n"
       if special
         let before .= "\t"
+=======
+      let before = before . "\n"
+      if special
+        let before = before . "\t"
+>>>>>>> origin/master
       endif
     endif
   endif
@@ -285,10 +410,15 @@ endfunction
 
 function! s:insert(...) " {{{1
   " Optional argument causes the result to appear on 3 lines, not 1
+<<<<<<< HEAD
+=======
+  "call inputsave()
+>>>>>>> origin/master
   let linemode = a:0 ? a:1 : 0
   let char = s:inputreplacement()
   while char == "\<CR>" || char == "\<C-S>"
     " TODO: use total count for additional blank lines
+<<<<<<< HEAD
     let linemode += 1
     let char = s:inputreplacement()
   endwhile
@@ -297,6 +427,18 @@ function! s:insert(...) " {{{1
   endif
   let cb_save = &clipboard
   set clipboard-=unnamed clipboard-=unnamedplus
+=======
+    let linemode = linemode + 1
+    let char = s:inputreplacement()
+  endwhile
+  "call inputrestore()
+  if char == ""
+    return ""
+  endif
+  "call inputsave()
+  let cb_save = &clipboard
+  set clipboard-=unnamed
+>>>>>>> origin/master
   let reg_save = @@
   call setreg('"',"\r",'v')
   call s:wrapreg('"',char,linemode)
@@ -311,6 +453,12 @@ function! s:insert(...) " {{{1
   if exists("g:surround_insert_tail")
     call setreg('"',g:surround_insert_tail,"a".getregtype('"'))
   endif
+<<<<<<< HEAD
+=======
+  "if linemode
+  "call setreg('"',substitute(getreg('"'),'^\s\+','',''),'c')
+  "endif
+>>>>>>> origin/master
   if col('.') >= col('$')
     norm! ""p
   else
@@ -358,7 +506,11 @@ function! s:dosurround(...) " {{{1
     endif
   endif
   let cb_save = &clipboard
+<<<<<<< HEAD
   set clipboard-=unnamed clipboard-=unnamedplus
+=======
+  set clipboard-=unnamed
+>>>>>>> origin/master
   let append = ""
   let original = getreg('"')
   let otype = getregtype('"')
@@ -457,9 +609,16 @@ function! s:opfunc(type,...) " {{{1
   let sel_save = &selection
   let &selection = "inclusive"
   let cb_save  = &clipboard
+<<<<<<< HEAD
   set clipboard-=unnamed clipboard-=unnamedplus
   let reg_save = getreg(reg)
   let reg_type = getregtype(reg)
+=======
+  set clipboard-=unnamed
+  let reg_save = getreg(reg)
+  let reg_type = getregtype(reg)
+  "call setreg(reg,"\n","c")
+>>>>>>> origin/master
   let type = a:type
   if a:type == "char"
     silent exe 'norm! v`[o`]"'.reg.'y'
@@ -468,7 +627,10 @@ function! s:opfunc(type,...) " {{{1
     silent exe 'norm! `[V`]"'.reg.'y'
     let type = 'V'
   elseif a:type ==# "v" || a:type ==# "V" || a:type ==# "\<C-V>"
+<<<<<<< HEAD
     let &selection = sel_save
+=======
+>>>>>>> origin/master
     let ve = &virtualedit
     if !(a:0 && a:1)
       set virtualedit=
@@ -536,12 +698,17 @@ nnoremap <silent> <Plug>YSsurround :<C-U>call <SID>opfunc2(v:count1)<CR>
 " <C-U> discards the numerical argument but there's not much we can do with it
 nnoremap <silent> <Plug>Ysurround  :<C-U>set opfunc=<SID>opfunc<CR>g@
 nnoremap <silent> <Plug>YSurround  :<C-U>set opfunc=<SID>opfunc2<CR>g@
+<<<<<<< HEAD
+=======
+vnoremap <silent> <Plug>Vsurround  :<C-U>call <SID>opfunc(visualmode())<CR>
+>>>>>>> origin/master
 vnoremap <silent> <Plug>VSurround  :<C-U>call <SID>opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
 vnoremap <silent> <Plug>VgSurround :<C-U>call <SID>opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
 inoremap <silent> <Plug>Isurround  <C-R>=<SID>insert()<CR>
 inoremap <silent> <Plug>ISurround  <C-R>=<SID>insert(1)<CR>
 
 if !exists("g:surround_no_mappings") || ! g:surround_no_mappings
+<<<<<<< HEAD
   nmap ds  <Plug>Dsurround
   nmap cs  <Plug>Csurround
   nmap ys  <Plug>Ysurround
@@ -552,11 +719,48 @@ if !exists("g:surround_no_mappings") || ! g:surround_no_mappings
   xmap S   <Plug>VSurround
   xmap gS  <Plug>VgSurround
   xnoremap <silent> s :<C-U>echoerr 'surround.vim: Visual mode s has been removed in favor of S'<CR>
+=======
+  nmap      ds   <Plug>Dsurround
+  nmap      cs   <Plug>Csurround
+  nmap      ys   <Plug>Ysurround
+  nmap      yS   <Plug>YSurround
+  nmap      yss  <Plug>Yssurround
+  nmap      ySs  <Plug>YSsurround
+  nmap      ySS  <Plug>YSsurround
+  if !hasmapto("<Plug>Vsurround","v") && !hasmapto("<Plug>VSurround","v")
+    if exists(":xmap")
+      xmap  s    <Plug>Vsurround
+    else
+      vmap  s    <Plug>Vsurround
+    endif
+  endif
+  if !hasmapto("<Plug>VSurround","v")
+    if exists(":xmap")
+      xmap  S    <Plug>VSurround
+    else
+      vmap  S    <Plug>VSurround
+    endif
+  endif
+  if exists(":xmap")
+    xmap    gS   <Plug>VgSurround
+  else
+    vmap    gS   <Plug>VgSurround
+  endif
+>>>>>>> origin/master
   if !hasmapto("<Plug>Isurround","i") && "" == mapcheck("<C-S>","i")
     imap    <C-S> <Plug>Isurround
   endif
   imap      <C-G>s <Plug>Isurround
   imap      <C-G>S <Plug>ISurround
+<<<<<<< HEAD
 endif
 
+=======
+  "Implemented internally instead
+  "imap      <C-S><C-S> <Plug>ISurround
+endif
+
+let &cpo = s:cpo_save
+
+>>>>>>> origin/master
 " vim:set ft=vim sw=2 sts=2 et:
