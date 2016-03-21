@@ -1,5 +1,6 @@
 " Color scheme
 colorscheme mustang
+"colorscheme molokai
 "colorscheme synic 
 "colorscheme zenbrue
 "colorscheme osx_like
@@ -9,7 +10,7 @@ colorscheme mustang
 "colorscheme github256
 
 " Default font
-set gfn=Monaco\ 10
+set gfn=Monaco\ 12
 
 " No Tool Bar in GUI mode
 set guioptions-=T
