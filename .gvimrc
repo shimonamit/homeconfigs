@@ -10,6 +10,7 @@ colorscheme mustang
 "colorscheme github256
 
 " Default font
+
 set gfn=Monaco\ 12
 
 " No Tool Bar in GUI mode

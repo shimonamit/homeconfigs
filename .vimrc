@@ -3,7 +3,8 @@
 "au BufWritePost .gvimrc so ~/.gvimrc
 
 " Default font (currently placed in ~/.fonts)
-set gfn=Monaco\ 12
+"set gfn=Monaco\ 12
+set gfn=Monaco\ 13
 set t_Co=256 " Explicitly tell VIM the terminal has 256 colors.
 
 " Tab spacing
@@ -112,6 +113,7 @@ set hlsearch  " Highlight search term.
 " Vim Editor Window
 set title     " Sets the title of the windows to "filename"
 set number    " Show line numbers
+set relativenumber " Show relative line numbers
 
 " Color theme
 syntax on " Turn on syntax highlighting
@@ -131,9 +133,6 @@ au VimEnter * Alias bc Bclose
 
 " Ack alias
 au VimEnter * Alias ack Ack 
-
-" Mouse
-set mouse=a " Allow
 
 set nosol  " Don't move cursor to beginning of line when switching buffers
 " Backspace
@@ -197,5 +196,5 @@ inoremap <CR> <CR><Space><BS>
 nnoremap o o<Space><BS>
 nnoremap O O<Space><BS>
 
-set nofoldenable " No code folding in gvimdiff
+set nowrap " No code folding in gvimdiff
 set scrolloff=3 " Scroll window when cursor is less than 10 lines from edge
