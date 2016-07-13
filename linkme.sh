@@ -44,3 +44,12 @@ if [ -f ~/.bashrc ]; then
   cp ~/.bashrc ~/.bashrc.backup.$(date +"%Y%m%d%H%M")
   echo $'\n'". ~/.bash/my-git-prompt.sh" >> ~/.bashrc
 fi
+
+#--------------------------------------#
+# ~/.fonts.conf
+#--------------------------------------#
+if [ -f ~/.fonts.conf ]; then
+  cp ~/.fonts.conf ~/.fonts.conf.backup.$(date +"%Y%m%d%H%M")
+  rm ~/.fonts.conf
+fi
+ln -s $SCRIPT_DIR/.fonts.conf ~/.fonts.conf
